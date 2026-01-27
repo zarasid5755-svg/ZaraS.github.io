@@ -1,0 +1,26 @@
+body {
+  font-family: Arial, sans-serif;
+  text-align: center;
+  margin: 0;
+  padding: 0;
+}
+header {
+  background: #222;
+  color: #fff;
+  padding: 40px 0;
+}
+.profile {
+  width: 120px;
+  border-radius: 50%;
+}
+section {
+  padding: 30px;
+}
+.project img {
+  width: 250px;
+  margin: 10px;
+}
+a {
+  text-decoration: none;
+  color: #0066cc;
+}
