@@ -1,12 +1,894 @@
-
 <!DOCTYPE html>
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <title>Mon portfolio BTS</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio BTS SIO - Terminal Mode</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;800&family=Orbitron:wght@700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --cyber-green: #00ff41;
+            --cyber-blue: #00d9ff;
+            --cyber-pink: #ff006e;
+            --dark-bg: #0a0e27;
+            --darker-bg: #050816;
+            --terminal-gray: #1a1f3a;
+            --text-muted: #8892b0;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'JetBrains Mono', monospace;
+            background: var(--darker-bg);
+            color: var(--cyber-green);
+            overflow-x: hidden;
+            cursor: crosshair;
+        }
+
+        /* Animated Grid Background */
+        .grid-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(0, 255, 65, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 255, 65, 0.03) 1px, transparent 1px);
+            background-size: 50px 50px;
+            animation: gridScroll 20s linear infinite;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        @keyframes gridScroll {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(50px); }
+        }
+
+        /* Scanline Effect */
+        .scanline {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                to bottom,
+                transparent 50%,
+                rgba(0, 255, 65, 0.02) 50%
+            );
+            background-size: 100% 4px;
+            animation: scanline 8s linear infinite;
+            pointer-events: none;
+            z-index: 9999;
+        }
+
+        @keyframes scanline {
+            0% { background-position: 0 0; }
+            100% { background-position: 0 100%; }
+        }
+
+        /* Container */
+        .container {
+            position: relative;
+            z-index: 1;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        /* Header Terminal */
+        .terminal-header {
+            background: var(--terminal-gray);
+            border: 2px solid var(--cyber-green);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 3rem;
+            box-shadow: 0 0 30px rgba(0, 255, 65, 0.3);
+            animation: slideDown 0.8s ease-out;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .terminal-top-bar {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 1rem;
+        }
+
+        .terminal-btn {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: var(--cyber-pink);
+            box-shadow: 0 0 10px var(--cyber-pink);
+        }
+
+        .terminal-btn:nth-child(2) { background: #ffaa00; box-shadow: 0 0 10px #ffaa00; }
+        .terminal-btn:nth-child(3) { background: var(--cyber-green); box-shadow: 0 0 10px var(--cyber-green); }
+
+        h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 3.5rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, var(--cyber-green), var(--cyber-blue));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 0.5rem;
+            letter-spacing: 2px;
+            animation: glitch 3s infinite;
+        }
+
+        @keyframes glitch {
+            0%, 90%, 100% { transform: translateX(0); }
+            92% { transform: translateX(-2px); }
+            94% { transform: translateX(2px); }
+            96% { transform: translateX(-2px); }
+        }
+
+        .typing-text {
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            border-right: 2px solid var(--cyber-green);
+            padding-right: 5px;
+            animation: typing 3.5s steps(40) 1s both, blink 0.75s step-end infinite;
+            white-space: nowrap;
+            overflow: hidden;
+        }
+
+        @keyframes typing {
+            from { width: 0; }
+            to { width: 100%; }
+        }
+
+        @keyframes blink {
+            50% { border-color: transparent; }
+        }
+
+        /* Navigation */
+        .nav-terminal {
+            display: flex;
+            gap: 1rem;
+            margin: 2rem 0;
+            flex-wrap: wrap;
+            animation: fadeIn 1s ease-out 0.5s both;
+        }
+
+        .nav-btn {
+            background: transparent;
+            border: 2px solid var(--cyber-green);
+            color: var(--cyber-green);
+            padding: 0.8rem 1.5rem;
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 600;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .nav-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: var(--cyber-green);
+            transition: left 0.3s ease;
+            z-index: -1;
+        }
+
+        .nav-btn:hover {
+            color: var(--darker-bg);
+            box-shadow: 0 0 20px var(--cyber-green);
+        }
+
+        .nav-btn:hover::before {
+            left: 0;
+        }
+
+        .nav-btn.active {
+            background: var(--cyber-green);
+            color: var(--darker-bg);
+        }
+
+        /* Sections */
+        .section {
+            display: none;
+            animation: fadeIn 0.6s ease-out;
+        }
+
+        .section.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Cards */
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .card {
+            background: var(--terminal-gray);
+            border: 1px solid var(--cyber-green);
+            padding: 2rem;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -100%;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--cyber-blue), transparent);
+            animation: borderScan 3s linear infinite;
+        }
+
+        @keyframes borderScan {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 40px rgba(0, 255, 65, 0.2);
+            border-color: var(--cyber-blue);
+        }
+
+        .card h3 {
+            font-family: 'Orbitron', sans-serif;
+            color: var(--cyber-blue);
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+
+        .card p {
+            color: var(--text-muted);
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+
+        .tech-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        .tag {
+            background: rgba(0, 255, 65, 0.1);
+            border: 1px solid var(--cyber-green);
+            padding: 0.3rem 0.8rem;
+            font-size: 0.8rem;
+            color: var(--cyber-green);
+        }
+
+        /* Skills Matrix */
+        .skills-matrix {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .skill-item {
+            background: var(--terminal-gray);
+            padding: 1.5rem;
+            border-left: 4px solid var(--cyber-green);
+            position: relative;
+        }
+
+        .skill-name {
+            font-weight: 600;
+            color: var(--cyber-blue);
+            margin-bottom: 0.8rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .skill-level {
+            font-size: 0.8rem;
+            color: var(--cyber-green);
+        }
+
+        .progress-bar {
+            height: 8px;
+            background: var(--dark-bg);
+            border-radius: 4px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--cyber-green), var(--cyber-blue));
+            animation: progressGlow 2s ease-in-out infinite;
+            transition: width 1s ease-out;
+        }
+
+        @keyframes progressGlow {
+            0%, 100% { box-shadow: 0 0 10px var(--cyber-green); }
+            50% { box-shadow: 0 0 20px var(--cyber-blue); }
+        }
+
+        /* Contact Form */
+        .contact-form {
+            max-width: 600px;
+            margin: 2rem auto;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        label {
+            display: block;
+            color: var(--cyber-blue);
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        input, textarea {
+            width: 100%;
+            background: var(--terminal-gray);
+            border: 2px solid var(--cyber-green);
+            color: var(--cyber-green);
+            padding: 0.8rem;
+            font-family: 'JetBrains Mono', monospace;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        input:focus, textarea:focus {
+            border-color: var(--cyber-blue);
+            box-shadow: 0 0 15px rgba(0, 217, 255, 0.3);
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 150px;
+        }
+
+        .submit-btn {
+            background: var(--cyber-green);
+            color: var(--darker-bg);
+            border: none;
+            padding: 1rem 2rem;
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 600;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+
+        .submit-btn:hover {
+            background: var(--cyber-blue);
+            box-shadow: 0 0 30px var(--cyber-blue);
+            transform: translateY(-2px);
+        }
+
+        /* Timeline */
+        .timeline {
+            position: relative;
+            padding-left: 3rem;
+            margin-top: 2rem;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 2px;
+            height: 100%;
+            background: linear-gradient(180deg, var(--cyber-green), var(--cyber-blue));
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 2rem;
+            padding-left: 2rem;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -3.5rem;
+            top: 0;
+            width: 12px;
+            height: 12px;
+            background: var(--cyber-green);
+            border-radius: 50%;
+            box-shadow: 0 0 15px var(--cyber-green);
+        }
+
+        .timeline-year {
+            color: var(--cyber-pink);
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .timeline-content {
+            background: var(--terminal-gray);
+            padding: 1.5rem;
+            border-left: 3px solid var(--cyber-green);
+        }
+
+        .timeline-content h4 {
+            color: var(--cyber-blue);
+            margin-bottom: 0.5rem;
+        }
+
+        .timeline-content p {
+            color: var(--text-muted);
+            line-height: 1.6;
+        }
+
+        /* Footer */
+        footer {
+            margin-top: 4rem;
+            padding: 2rem;
+            text-align: center;
+            border-top: 1px solid var(--cyber-green);
+            color: var(--text-muted);
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .social-links a {
+            color: var(--cyber-green);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-weight: 600;
+        }
+
+        .social-links a:hover {
+            color: var(--cyber-blue);
+            text-shadow: 0 0 10px var(--cyber-blue);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .typing-text {
+                font-size: 1rem;
+            }
+            
+            .card-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .timeline {
+                padding-left: 2rem;
+            }
+        }
+
+        /* Glowing cursor trail */
+        .cursor-trail {
+            position: fixed;
+            width: 4px;
+            height: 4px;
+            background: var(--cyber-green);
+            border-radius: 50%;
+            pointer-events: none;
+            animation: cursorFade 0.5s ease-out forwards;
+            z-index: 9998;
+            box-shadow: 0 0 10px var(--cyber-green);
+        }
+
+        @keyframes cursorFade {
+            to {
+                opacity: 0;
+                transform: scale(0);
+            }
+        }
+    </style>
 </head>
 <body>
-    <h1>Portfolio BTS</h1>
-    <p>Bienvenue sur mon site.</p>
+    <!-- Background Effects -->
+    <div class="grid-background"></div>
+    <div class="scanline"></div>
+
+    <div class="container">
+        <!-- Header -->
+        <header class="terminal-header">
+            <div class="terminal-top-bar">
+                <div class="terminal-btn"></div>
+                <div class="terminal-btn"></div>
+                <div class="terminal-btn"></div>
+            </div>
+            <h1>PORTFOLIO.exe</h1>
+            <div class="typing-text">$ Étudiant BTS SIO | Option SISR/SLAM</div>
+        </header>
+
+        <!-- Navigation -->
+        <nav class="nav-terminal">
+            <button class="nav-btn active" onclick="showSection('apropos')">[ À PROPOS ]</button>
+            <button class="nav-btn" onclick="showSection('projets')">[ PROJETS ]</button>
+            <button class="nav-btn" onclick="showSection('competences')">[ COMPÉTENCES ]</button>
+            <button class="nav-btn" onclick="showSection('parcours')">[ PARCOURS ]</button>
+            <button class="nav-btn" onclick="showSection('contact')">[ CONTACT ]</button>
+        </nav>
+
+        <!-- Section À Propos -->
+        <section id="apropos" class="section active">
+            <div class="card">
+                <h3>&gt; À PROPOS DE MOI_</h3>
+                <p>
+                    Bienvenue dans mon espace numérique ! Je suis étudiant en BTS SIO, passionné par l'informatique 
+                    et les nouvelles technologies. Mon objectif est de développer des solutions innovantes et de 
+                    maîtriser les dernières techniques en développement et administration système.
+                </p>
+                <p>
+                    Actuellement en formation, je cherche constamment à améliorer mes compétences à travers des 
+                    projets concrets et des expériences professionnelles enrichissantes.
+                </p>
+                <div class="tech-tags">
+                    <span class="tag">#Développement</span>
+                    <span class="tag">#Réseaux</span>
+                    <span class="tag">#Sécurité</span>
+                    <span class="tag">#Innovation</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section Projets -->
+        <section id="projets" class="section">
+            <div class="card-grid">
+                <div class="card">
+                    <h3>&gt; Application Web GSB_</h3>
+                    <p>
+                        Développement d'une application de gestion des frais pour l'entreprise GSB. 
+                        Interface utilisateur intuitive avec système d'authentification et gestion des rôles.
+                    </p>
+                    <div class="tech-tags">
+                        <span class="tag">PHP</span>
+                        <span class="tag">MySQL</span>
+                        <span class="tag">Bootstrap</span>
+                        <span class="tag">MVC</span>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3>&gt; Infrastructure Réseau_</h3>
+                    <p>
+                        Mise en place d'une infrastructure réseau complète avec serveur Windows Server, 
+                        Active Directory, DNS, DHCP et gestion des GPO.
+                    </p>
+                    <div class="tech-tags">
+                        <span class="tag">Windows Server</span>
+                        <span class="tag">Active Directory</span>
+                        <span class="tag">PowerShell</span>
+                        <span class="tag">VirtualBox</span>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3>&gt; Application Mobile_</h3>
+                    <p>
+                        Création d'une application mobile multiplateforme pour la gestion de tâches avec 
+                        synchronisation cloud et notifications push.
+                    </p>
+                    <div class="tech-tags">
+                        <span class="tag">React Native</span>
+                        <span class="tag">Firebase</span>
+                        <span class="tag">JavaScript</span>
+                        <span class="tag">API REST</span>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3>&gt; Système de Cybersécurité_</h3>
+                    <p>
+                        Analyse et sécurisation d'un système informatique avec mise en place de pare-feu, 
+                        détection d'intrusions et politique de sécurité.
+                    </p>
+                    <div class="tech-tags">
+                        <span class="tag">pfSense</span>
+                        <span class="tag">Linux</span>
+                        <span class="tag">Wireshark</span>
+                        <span class="tag">Sécurité</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section Compétences -->
+        <section id="competences" class="section">
+            <div class="skills-matrix">
+                <div class="skill-item">
+                    <div class="skill-name">
+                        <span>Python</span>
+                        <span class="skill-level">85%</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 85%"></div>
+                    </div>
+                </div>
+
+                <div class="skill-item">
+                    <div class="skill-name">
+                        <span>PHP / MySQL</span>
+                        <span class="skill-level">80%</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 80%"></div>
+                    </div>
+                </div>
+
+                <div class="skill-item">
+                    <div class="skill-name">
+                        <span>JavaScript</span>
+                        <span class="skill-level">75%</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 75%"></div>
+                    </div>
+                </div>
+
+                <div class="skill-item">
+                    <div class="skill-name">
+                        <span>HTML / CSS</span>
+                        <span class="skill-level">90%</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 90%"></div>
+                    </div>
+                </div>
+
+                <div class="skill-item">
+                    <div class="skill-name">
+                        <span>Linux / Bash</span>
+                        <span class="skill-level">70%</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 70%"></div>
+                    </div>
+                </div>
+
+                <div class="skill-item">
+                    <div class="skill-name">
+                        <span>Windows Server</span>
+                        <span class="skill-level">75%</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 75%"></div>
+                    </div>
+                </div>
+
+                <div class="skill-item">
+                    <div class="skill-name">
+                        <span>Réseaux</span>
+                        <span class="skill-level">70%</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 70%"></div>
+                    </div>
+                </div>
+
+                <div class="skill-item">
+                    <div class="skill-name">
+                        <span>Git / GitHub</span>
+                        <span class="skill-level">80%</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 80%"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section Parcours -->
+        <section id="parcours" class="section">
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-year">2024 - 2026</div>
+                    <div class="timeline-content">
+                        <h4>BTS SIO - Services Informatiques aux Organisations</h4>
+                        <p>
+                            Formation en cours. Spécialisation en développement d'applications (SLAM) 
+                            et/ou solutions d'infrastructure, systèmes et réseaux (SISR).
+                        </p>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-year">2024</div>
+                    <div class="timeline-content">
+                        <h4>Stage en Entreprise</h4>
+                        <p>
+                            Expérience professionnelle en tant que développeur/technicien. Participation 
+                            à des projets réels et acquisition de compétences techniques.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-year">2023</div>
+                    <div class="timeline-content">
+                        <h4>Baccalauréat</h4>
+                        <p>
+                            Obtention du baccalauréat avec mention. Première approche des sciences 
+                            informatiques et de la programmation.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-year">2022</div>
+                    <div class="timeline-content">
+                        <h4>Projets Personnels</h4>
+                        <p>
+                            Début de l'apprentissage autodidacte en programmation. Réalisation de 
+                            premiers projets web et scripts d'automatisation.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section Contact -->
+        <section id="contact" class="section">
+            <form class="contact-form">
+                <div class="form-group">
+                    <label for="nom">&gt; NOM_</label>
+                    <input type="text" id="nom" name="nom" required placeholder="Votre nom...">
+                </div>
+
+                <div class="form-group">
+                    <label for="email">&gt; EMAIL_</label>
+                    <input type="email" id="email" name="email" required placeholder="votre.email@exemple.com">
+                </div>
+
+                <div class="form-group">
+                    <label for="sujet">&gt; SUJET_</label>
+                    <input type="text" id="sujet" name="sujet" required placeholder="Sujet de votre message...">
+                </div>
+
+                <div class="form-group">
+                    <label for="message">&gt; MESSAGE_</label>
+                    <textarea id="message" name="message" required placeholder="Votre message..."></textarea>
+                </div>
+
+                <button type="submit" class="submit-btn">[ ENVOYER ]</button>
+            </form>
+        </section>
+
+        <!-- Footer -->
+        <footer>
+            <div class="social-links">
+                <a href="https://github.com/votre-pseudo" target="_blank">[ GITHUB ]</a>
+                <a href="https://linkedin.com/in/votre-profil" target="_blank">[ LINKEDIN ]</a>
+                <a href="mailto:votre.email@exemple.com">[ EMAIL ]</a>
+            </div>
+            <p>&copy; 2026 - Portfolio BTS SIO | Développé avec passion 💚</p>
+        </footer>
+    </div>
+
+    <script>
+        // Navigation entre sections
+        function showSection(sectionId) {
+            // Cacher toutes les sections
+            document.querySelectorAll('.section').forEach(section => {
+                section.classList.remove('active');
+            });
+            
+            // Retirer la classe active de tous les boutons
+            document.querySelectorAll('.nav-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            
+            // Afficher la section sélectionnée
+            document.getElementById(sectionId).classList.add('active');
+            
+            // Activer le bouton correspondant
+            event.target.classList.add('active');
+            
+            // Scroll vers le haut
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Effet de traînée du curseur
+        document.addEventListener('mousemove', (e) => {
+            const trail = document.createElement('div');
+            trail.className = 'cursor-trail';
+            trail.style.left = e.pageX + 'px';
+            trail.style.top = e.pageY + 'px';
+            document.body.appendChild(trail);
+            
+            setTimeout(() => trail.remove(), 500);
+        });
+
+        // Animation des barres de progression au scroll
+        const observerOptions = {
+            threshold: 0.5
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const progressBars = entry.target.querySelectorAll('.progress-fill');
+                    progressBars.forEach(bar => {
+                        bar.style.width = bar.style.width;
+                    });
+                }
+            });
+        }, observerOptions);
+
+        const skillsSection = document.getElementById('competences');
+        if (skillsSection) {
+            observer.observe(skillsSection);
+        }
+
+        // Gestion du formulaire de contact
+        document.querySelector('.contact-form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            alert('Message envoyé ! (Cette fonctionnalité nécessite un backend pour fonctionner réellement)');
+        });
+
+        // Animation d'apparition progressive des éléments
+        const fadeElements = document.querySelectorAll('.card, .skill-item, .timeline-item');
+        
+        const fadeObserver = new IntersectionObserver((entries) => {
+            entries.forEach((entry, index) => {
+                if (entry.isIntersecting) {
+                    setTimeout(() => {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }, index * 100);
+                }
+            });
+        }, { threshold: 0.1 });
+
+        fadeElements.forEach(element => {
+            element.style.opacity = '0';
+            element.style.transform = 'translateY(20px)';
+            element.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            fadeObserver.observe(element);
+        });
+    </script>
 </body>
 </html>
