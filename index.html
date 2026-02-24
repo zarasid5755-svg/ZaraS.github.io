@@ -8,8 +8,13 @@
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;800&family=Orbitron:wght@700;900&display=swap" rel="stylesheet">
     <!-- Fichier CSS -->
     <link rel="stylesheet" href="style.css">
+      <script src="script.js"></script>
 </head>
 <body>
+
+  
+
+
     <!-- Background Effects -->
     <div class="grid-background"></div>
     <div class="scanline"></div>
@@ -22,18 +27,19 @@
                 <div class="terminal-btn"></div>
                 <div class="terminal-btn"></div>
             </div>
-            <h1>SID ZZZZARA golmon</h1>
+            <h1>SID ZARA</h1>
             <div class="typing-text">$ Étudiante BTS SIO | Option SISR en Alternance</div>
         </header>
 
         <!-- Navigation -->
-        <nav class="nav-terminal">
-            <button class="nav-btn active" onclick="showSection('apropos')">[ À PROPOS ]</button>
-            <button class="nav-btn" onclick="showSection('projets')">[ PROJETS ]</button>
-            <button class="nav-btn" onclick="showSection('competences')">[ COMPÉTENCES ]</button>
-            <button class="nav-btn" onclick="showSection('parcours')">[ PARCOURS ]</button>
-            <button class="nav-btn" onclick="showSection('contact')">[ CONTACT ]</button>
+         <nav class="nav-terminal">
+             <button class="nav-btn active" data-section="apropos">[ À PROPOS ]</button>
+              <button class="nav-btn" data-section="projets">[ PROJETS ]</button>
+             <button class="nav-btn" data-section="competences">[ COMPÉTENCES ]</button>
+             <button class="nav-btn" data-section="parcours">[ PARCOURS ]</button>
+             <button class="nav-btn" data-section="contact">[ CONTACT ]</button>
         </nav>
+
 
         <!-- Section À Propos -->
         <section id="apropos" class="section active">
@@ -41,7 +47,7 @@
                 <h3>&gt; À PROPOS DE MOI_</h3>
                 <p>
                     Bienvenue dans mon espace numérique ! Je suis Zara SID, étudiante en BTS SIO option SISR 
-                    (Solutions d'Infrastructure, Systèmes et Réseaux) en alternance. Passionné par l'administration 
+                    (Solutions d'Infrastructure, Systèmes et Réseaux) en alternance. Passionnée par l'administration 
                     système, les réseaux et la cybersécurité, je développe mes compétences techniques à travers 
                     des projets concrets en entreprise.
                 </p>
@@ -238,7 +244,7 @@
                     <div class="timeline-content">
                         <h4>Baccalauréat</h4>
                         <p>
-                            Obtention du baccalauréat avec mention. Première approche de l'informatique 
+                            Obtention du baccalauréat. Première approche de l'informatique 
                             et découverte de l'administration système et des réseaux.
                         </p>
                     </div>
