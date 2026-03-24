@@ -10,10 +10,8 @@
     <link rel="stylesheet" href="style.css">
     
 </head>
-  <script src="script.js"></script>
-<body>
 
-  
+<body>
 
 
     <!-- Background Effects -->
@@ -36,55 +34,64 @@
          <nav class="nav-terminal">
              <button class="nav-btn active" data-section="apropos">[ À PROPOS ]</button>
               <button class="nav-btn" data-section="projets">[ PROJETS ]</button>
-             <button class="nav-btn" data-section="competences">[ COMPÉTENCES ]</button>
              <button class="nav-btn" data-section="parcours">[ PARCOURS ]</button>
-             <button class="nav-btn" data-section="contact">[ CONTACT ]</button>
+             <button class="nav-btn" data-section="veille">[ VEILLE TECHNOLOGIQUE ]</button>
+            <button class="nav-btn" data-section="epreuves">[ EPREUVES BTS ]</button>
+            <button class="nav-btn" data-section="contact">[ CONTACT ]</button>
         </nav>
 
 
-        <!-- Section À Propos -->
-        <section id="apropos" class="section active">
-            <div class="card">
-                <h3>&gt; À PROPOS DE MOI_</h3>
-                <p>
-                    Bienvenue dans mon espace numérique ! Je suis Zara SID, étudiante en BTS SIO option SISR 
-                    (Solutions d'Infrastructure, Systèmes et Réseaux) en alternance. Passionnée par l'administration 
-                    système, les réseaux et la cybersécurité, je développe mes compétences techniques à travers 
-                    des projets concrets en entreprise.
-                </p>
-                <p>
-                    Mon alternance me permet de mettre en pratique quotidiennement mes connaissances théoriques 
-                    et de me confronter aux enjeux réels de l'infrastructure informatique. Je suis constamment 
-                    à la recherche de nouvelles solutions pour optimiser et sécuriser les systèmes d'information.
-                </p>
-                <div class="tech-tags">
-                    <span class="tag">#Réseaux</span>
-                    <span class="tag">#Systèmes</span>
-                    <span class="tag">#Sécurité</span>
-                    <span class="tag">#Administration</span>
-                    <span class="tag">#Alternance</span>
-                </div>
-            </div>
+      <!-- Section À Propos -->
+<section id="apropos" class="section active">
+
+    <div class="card">
+        <h3>&gt; À PROPOS DE MOI_</h3>
+
+        <p>
+            Je suis <strong>Zara SID</strong>, étudiante en <strong>BTS SIO option SISR</strong> en alternance.
+        </p>
+
+        <p>
+            Passionnée par les infrastructures informatiques, je me spécialise dans 
+            l’administration des systèmes Windows et Linux, la gestion des réseaux 
+            et la sécurisation des environnements professionnels.
+        </p>
+
+        <p>
+            Au cours de ma formation et de mon alternance, j’ai développé des compétences 
+            en gestion d’Active Directory, configuration de services réseau (DNS, DHCP), 
+            supervision d’infrastructures, mise en place de sauvegardes et support technique.
+        </p>
+
+        <p>
+            Rigoureuse, organisée et curieuse, je cherche constamment à approfondir mes 
+            connaissances et à optimiser les systèmes d’information sur lesquels j’interviens.
+        </p>
+
+        <p>
+             <strong>Objectif professionnel :</strong> évoluer vers un poste 
+            d’Administratrice Systèmes et Réseaux et participer à la conception 
+            d’infrastructures fiables et sécurisées.
+        </p>
+
+       
+    </div>
+
+    <!-- Bouton en dehors du cadre -->
+    <div style="margin-top:25px; text-align:center;">
+        <a href="cv.pdf" target="_blank" class="submit-btn">
+            [ TÉLÉCHARGER MON CV ]
+        </a>
+    </div>
+
+</section>
         </section>
 
-        <!-- Section Projets -->
+        <!-- Section Projets BTS -->
         <section id="projets" class="section">
             <div class="card-grid">
-                <div class="card">
-                    <h3>&gt; Supervision Réseau_</h3>
-                    <p>
-                        Mise en place d'une solution de supervision réseau complète pour monitorer l'infrastructure 
-                        de l'entreprise. Configuration d'alertes, tableaux de bord et rapports de performance.
-                    </p>
-                    <div class="tech-tags">
-                        <span class="tag">Zabbix</span>
-                        <span class="tag">SNMP</span>
-                        <span class="tag">Grafana</span>
-                        <span class="tag">Linux</span>
-                    </div>
-                </div>
-
-                <div class="card">
+               
+               <div class="card">
                     <h3>&gt; Infrastructure Réseau_</h3>
                     <p>
                         Mise en place d'une infrastructure réseau complète avec serveur Windows Server, 
@@ -94,32 +101,105 @@
                         <span class="tag">Windows Server</span>
                         <span class="tag">Active Directory</span>
                         <span class="tag">PowerShell</span>
-                        <span class="tag">VirtualBox</span>
+                        <span class="tag">Hyper-V</span>
                     </div>
                 </div>
 
+               
+               
                 <div class="card">
-                    <h3>&gt; Virtualisation Infrastructure_</h3>
+                    <h3>&gt; Installation Active Directory_</h3>
                     <p>
-                        Déploiement d'une infrastructure virtualisée avec Proxmox. Configuration de VMs, 
-                        gestion des ressources, sauvegarde automatisée et haute disponibilité.
+                            Maîtrise de l’environnement Active Directory : 
+                            installation et configuration d’un contrôleur de domaine, 
+                            gestion des utilisateurs et groupes, création d’OU, 
+                            déploiement de stratégies de groupe (GPO), 
+                            configuration DNS et sécurisation de l’infrastructure.
                     </p>
                     <div class="tech-tags">
-                        <span class="tag">Proxmox</span>
-                        <span class="tag">KVM</span>
-                        <span class="tag">LXC</span>
-                        <span class="tag">Backup</span>
+                        <span class="tag">Windows Server</span>
+                        <span class="tag">AD DNS</span>
+                        <span class="tag">DHCP</span>
+                        <span class="tag">GPO</span>
                     </div>
                 </div>
 
+
+
                 <div class="card">
-                    <h3>&gt; Système de Cybersécurité_</h3>
+                    <h3>&gt; Création d'un Partage Réseau_</h3>
+                    <p>
+                        Création et configuration d’un dossier partagé sous Windows Server. 
+                        Gestion des autorisations NTFS et des permissions de partage 
+                        pour différents profils utilisateurs.
+                    </p>
+                    <div class="tech-tags">
+                        <span class="tag">Windows Server</span>
+                        <span class="tag">NTFS</span>
+                        <span class="tag">Gestion des droits</span>
+                        <span class="tag">GPO</span>
+                    </div>
+                </div>
+
+
+                <div class="card">
+                    
+                    <h3>&gt; Installation GLPI_</h3>
+                    <p>
+                       Déploiement de GLPI sur Debian 12 avec environnement LAMP. 
+                     Configuration Apache, MariaDB, PHP 8.2 et sécurisation de l’installation.
+                    </p>
+                    <div class="tech-tags">
+                        <span class="tag">Debian 12</span>
+                        <span class="tag">LAMP</span>
+                        <span class="tag">GLPI</span>
+                
+                    </div>
+                </div>
+
+
+
+                <div class="card">
+                    <h3>&gt; Sauvegarde et Restauration_</h3>
+                    <p>
+                        Mise en place d’une solution de sauvegarde avec Veeam Backup & Replication. 
+                        Configuration des jobs de sauvegarde, planification automatique 
+                         et restauration de machines virtuelles.
+                    </p>
+                    <div class="tech-tags">
+                        <span class="tag">Veeam Backup & Replication</span>
+                        <span class="tag">Windows Server</span>
+                        <span class="tag">Continuité de service</span>
+                        <span class="tag">PRA</span>
+                    </div>
+                </div>
+
+
+
+                <div class="card">
+                    <h3>&gt; Supervision Réseau_</h3>
+                    <p>
+                        Installation et configuration de PRTG Network Monitor pour superviser 
+                        serveurs, équipements réseau et services. 
+                        Mise en place de capteurs SNMP et alertes automatiques.
+                    </p>
+                    <div class="tech-tags">
+                        <span class="tag">PRTG</span>
+                        <span class="tag">SNMP</span>
+                        <span class="tag">Monitoring</span>
+                        <span class="tag">Alerting</span>
+                    </div>
+                </div>
+
+
+                <div class="card">
+                    <h3>&gt; Mise en place de FIREWALL_</h3>
                     <p>
                         Analyse et sécurisation d'un système informatique avec mise en place de pare-feu, 
                         détection d'intrusions et politique de sécurité.
                     </p>
                     <div class="tech-tags">
-                        <span class="tag">pfSense</span>
+                        <span class="tag">Stromshield</span>
                         <span class="tag">Linux</span>
                         <span class="tag">Wireshark</span>
                         <span class="tag">Sécurité</span>
@@ -128,90 +208,7 @@
             </div>
         </section>
 
-        <!-- Section Compétences -->
-        <section id="competences" class="section">
-            <div class="skills-matrix">
-                <div class="skill-item">
-                    <div class="skill-name">
-                        <span>Windows Server</span>
-                        <span class="skill-level">85%</span>
-                    </div>
-                    <div class="progress-bar">
-                        <div class="progress-fill" style="width: 85%"></div>
-                    </div>
-                </div>
-
-                <div class="skill-item">
-                    <div class="skill-name">
-                        <span>Linux / Bash</span>
-                        <span class="skill-level">80%</span>
-                    </div>
-                    <div class="progress-bar">
-                        <div class="progress-fill" style="width: 80%"></div>
-                    </div>
-                </div>
-
-                <div class="skill-item">
-                    <div class="skill-name">
-                        <span>Réseaux (TCP/IP, VLAN)</span>
-                        <span class="skill-level">80%</span>
-                    </div>
-                    <div class="progress-bar">
-                        <div class="progress-fill" style="width: 80%"></div>
-                    </div>
-                </div>
-
-                <div class="skill-item">
-                    <div class="skill-name">
-                        <span>Active Directory</span>
-                        <span class="skill-level">85%</span>
-                    </div>
-                    <div class="progress-bar">
-                        <div class="progress-fill" style="width: 85%"></div>
-                    </div>
-                </div>
-
-                <div class="skill-item">
-                    <div class="skill-name">
-                        <span>Virtualisation (Proxmox/VMware)</span>
-                        <span class="skill-level">75%</span>
-                    </div>
-                    <div class="progress-bar">
-                        <div class="progress-fill" style="width: 75%"></div>
-                    </div>
-                </div>
-
-                <div class="skill-item">
-                    <div class="skill-name">
-                        <span>Cybersécurité</span>
-                        <span class="skill-level">70%</span>
-                    </div>
-                    <div class="progress-bar">
-                        <div class="progress-fill" style="width: 70%"></div>
-                    </div>
-                </div>
-
-                <div class="skill-item">
-                    <div class="skill-name">
-                        <span>PowerShell / Scripting</span>
-                        <span class="skill-level">75%</span>
-                    </div>
-                    <div class="progress-bar">
-                        <div class="progress-fill" style="width: 75%"></div>
-                    </div>
-                </div>
-
-                <div class="skill-item">
-                    <div class="skill-name">
-                        <span>Docker / Conteneurisation</span>
-                        <span class="skill-level">70%</span>
-                    </div>
-                    <div class="progress-bar">
-                        <div class="progress-fill" style="width: 70%"></div>
-                    </div>
-                </div>
-            </div>
-        </section>
+        
 
         <!-- Section Parcours -->
         <section id="parcours" class="section">
@@ -219,7 +216,7 @@
                 <div class="timeline-item">
                     <div class="timeline-year">2024 - 2026</div>
                     <div class="timeline-content">
-                        <h4>BTS SIO SISR en Alternance</h4>
+                        <h4>BTS SIO SISR </h4>
                         <p>
                             Formation en alternance en Solutions d'Infrastructure, Systèmes et Réseaux. 
                             Spécialisation dans l'administration système, la gestion des réseaux et la sécurité 
@@ -229,11 +226,11 @@
                 </div>
 
                 <div class="timeline-item">
-                    <div class="timeline-year">2024 - Présent</div>
+                    <div class="timeline-year">2024 - 2026</div>
                     <div class="timeline-content">
-                        <h4>Alternant - Technicien Infrastructure</h4>
+                        <h4>Alternance - Apprentie Technicienne Support Proximité</h4>
                         <p>
-                            Missions en entreprise : administration des serveurs Windows/Linux, gestion du parc 
+                            Missions en entreprise : administration des serveurs Windows, gestion du parc 
                             informatique, maintenance réseau, support technique niveau 2, et participation aux 
                             projets d'infrastructure.
                         </p>
@@ -241,28 +238,80 @@
                 </div>
 
                 <div class="timeline-item">
-                    <div class="timeline-year">2023</div>
+                    <div class="timeline-year">2021</div>
                     <div class="timeline-content">
                         <h4>Baccalauréat</h4>
                         <p>
-                            Obtention du baccalauréat. Première approche de l'informatique 
-                            et découverte de l'administration système et des réseaux.
+                            Obtention du baccalauréat spécialité Mathématiques et Physique-Chimie.
+            
                         </p>
                     </div>
                 </div>
 
-                <div class="timeline-item">
-                    <div class="timeline-year">2022</div>
-                    <div class="timeline-content">
-                        <h4>Projets Personnels</h4>
-                        <p>
-                            Début de l'apprentissage autodidacte en administration système. Création d'un 
-                            homelab avec serveurs virtualisés, découverte de Linux et des technologies réseau.
-                        </p>
-                    </div>
-                </div>
+                
             </div>
         </section>
+
+         <!-- Section Veille Technologique -->
+     <section id="veille" class="section">
+         <div class="card">
+             <h3>&gt; Veille Technologique_</h3>
+                <p>
+                       Dans le cadre de ma formation BTS SIO SISR, je réalise une veille 
+                      technologique afin de suivre les évolutions du secteur informatique.
+                      Ma veille porte principalement sur :
+                </p>
+
+        <ul style="margin-top:15px; line-height:1.8;">
+            <li>• La cybersécurité et les nouvelles menaces</li>
+            <li>• Les solutions de virtualisation (Proxmox, VMware)</li>
+            <li>• L’évolution des infrastructures cloud</li>
+            <li>• Les outils de supervision et de sauvegarde</li>
+        </ul>
+
+        <p style="margin-top:15px;">
+            J’utilise différents outils comme Google Alerts, LinkedIn, 
+            blogs spécialisés, et documentations officielles pour maintenir 
+            mes connaissances à jour.
+        </p>
+
+        <div class="tech-tags">
+            <span class="tag">Cybersécurité</span>
+            <span class="tag">Cloud</span>
+            <span class="tag">Virtualisation</span>
+            <span class="tag">Supervision</span>
+        </div>
+    </div>
+</section>
+            <!-- Section Veille Technologique -->
+<section id="epreuves" class="section">
+    <div class="card">
+        <h3>&gt; Épreuves BTS SIO SISR_</h3>
+
+        <p>
+            Dans le cadre du BTS SIO option SISR, plusieurs épreuves 
+            professionnelles évaluent mes compétences :
+        </p>
+
+        <ul style="margin-top:15px; line-height:1.8;">
+            <li><strong>E4 :</strong> Support et mise à disposition de services informatiques</li>
+            <li><strong>E5 :</strong> Administration des systèmes et des réseaux</li>
+            <li><strong>E6 :</strong> Parcours de professionnalisation</li>
+        </ul>
+
+        <p style="margin-top:15px;">
+            Les projets présentés dans ce portfolio constituent les 
+            situations professionnelles utilisées pour l’épreuve E5.
+        </p>
+
+        <div class="tech-tags">
+            <span class="tag">E4</span>
+            <span class="tag">E5</span>
+            <span class="tag">E6</span>
+            <span class="tag">Compétences professionnelles</span>
+        </div>
+    </div>
+</section> 
 
         <!-- Section Contact -->
         <section id="contact" class="section">
@@ -301,3 +350,7 @@
             <p>&copy; 2026 - SID Zara | Portfolio BTS SIO SISR | Développé avec passion 💚</p>
         </footer>
     </div>
+ <script src="script.js"></script>
+
+</body>
+</html>
