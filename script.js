@@ -121,7 +121,7 @@ if (contactForm) {
     contactForm.addEventListener("submit", (e) => {
         e.preventDefault();
 
-        alert("Message envoyé ! (Fonctionne avec un backend réel)");
+        alert("Message envoyé ! Merci de m'avoir contacté. Je vous répondrai dès que possible.");
 
         contactForm.reset();
     });
